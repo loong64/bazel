@@ -166,6 +166,9 @@ filegroup(
         "//src/conditions:linux_aarch64": [
             "@openjdk_linux_aarch64_vanilla//file",
         ],
+        "//src/conditions:linux_loongarch64": [
+            "@openjdk_linux_loongarch64_vanilla//file",
+        ],
         "//src/conditions:linux_ppc64le": [
             "@openjdk_linux_ppc64le_vanilla//file",
         ],
@@ -181,6 +184,24 @@ filegroup(
     }),
     visibility = ["//src/test/shell/bazel:__pkg__"],
 )
+
+# Temurin's target-specific JMODs are published separately from its JDK.
+filegroup(
+    name = "embedded_jdk_jmods",
+    srcs = select({
+        "//src/conditions:linux_ppc64le": ["@openjdk_linux_ppc64le_jmods//file"],
+        "//src/conditions:linux_riscv64": ["@openjdk_linux_riscv64_jmods//file"],
+        "//src/conditions:linux_s390x": ["@openjdk_linux_s390x_jmods//file"],
+        "//conditions:default": [],
+    }),
+)
+
+_JMODS_ARG = select({
+    "//src/conditions:linux_ppc64le": " $(location :embedded_jdk_jmods)",
+    "//src/conditions:linux_riscv64": " $(location :embedded_jdk_jmods)",
+    "//src/conditions:linux_s390x": " $(location :embedded_jdk_jmods)",
+    "//conditions:default": "",
+})
 
 # Only necessary to distinguish between the tool and the target JDK for location
 # expansion.
@@ -228,10 +249,11 @@ genrule(
     name = "embedded_jdk_minimal",
     srcs = [
         ":embedded_jdk_vanilla",
+        ":embedded_jdk_jmods",
         ":jdeps_modules.golden",
     ],
     outs = ["minimal_jdk.zip"],
-    cmd = "$(location :minimize_jdk) $(location :jdk_for_jlink) $(location :embedded_jdk_vanilla) $(location :jdeps_modules.golden) $@",
+    cmd = "$(location :minimize_jdk) $(location :jdk_for_jlink) $(location :embedded_jdk_vanilla) $(location :jdeps_modules.golden) $@" + _JMODS_ARG,
     tools = [
         ":jdk_for_jlink",
         ":minimize_jdk",
@@ -243,10 +265,11 @@ genrule(
     name = "embedded_jdk_allmodules",
     srcs = [
         ":embedded_jdk_vanilla",
+        ":embedded_jdk_jmods",
         ":jdeps_modules.golden",
     ],
     outs = ["allmodules_jdk.zip"],
-    cmd = "$(location :minimize_jdk) --allmodules $(location :jdk_for_jlink) $(location :embedded_jdk_vanilla) $(location :jdeps_modules.golden) $@",
+    cmd = "$(location :minimize_jdk) --allmodules $(location :jdk_for_jlink) $(location :embedded_jdk_vanilla) $(location :jdeps_modules.golden) $@" + _JMODS_ARG,
     tools = [
         ":jdk_for_jlink",
         ":minimize_jdk",

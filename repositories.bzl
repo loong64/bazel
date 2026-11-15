@@ -92,6 +92,12 @@ def embedded_jdk_repositories():
         url = "https://cdn.azul.com/zulu/bin/zulu25.28.85-ca-jdk25.0.0-linux_aarch64.tar.gz",
     )
     http_file(
+        name = "openjdk_linux_loongarch64_vanilla",
+        integrity = "sha256-iVhKyF8YzapkUnWkxhaGUYKV0YK5eAGXYdECUpWYCpk=",
+        downloaded_file_path = "loongson-linux-loongarch64-vanilla.tar.gz",
+        url = "https://ftp.loongnix.cn/Java/openjdk25/loongson25.1.5-fx-jdk25_36-linux-loongarch64-glibc2.34.tar.gz",
+    )
+    http_file(
         name = "openjdk_linux_ppc64le_vanilla",
         integrity = "sha256-sGC7ErOhkqBZnwPruUlUkveMSMth4pHjNqiwDneY/7A=",
         downloaded_file_path = "adoptopenjdk-ppc64le-vanilla.tar.gz",
@@ -122,18 +128,37 @@ def embedded_jdk_repositories():
         url = "https://cdn.azul.com/zulu/bin/zulu25.28.85-ca-jdk25.0.0-win_aarch64.zip",
     )
 
-    # TODO: Update to JDK 25 when available for these architectures.
     http_file(
         name = "openjdk_linux_s390x_vanilla",
-        integrity = "sha256-VVBZ9JKatkNeuDtJbQuWm8appcB5FdX3YH9dgz44+zk=",
+        integrity = "sha256-PkduQPkgzPsZFdIAvHofup1oxK3MA1jFlo0VYTaQuRU=",
         downloaded_file_path = "adoptopenjdk-s390x-vanilla.tar.gz",
-        url = "https://github.com/adoptium/temurin24-binaries/releases/download/jdk-24.0.2%2B12/OpenJDK24U-jdk_s390x_linux_hotspot_24.0.2_12.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25%2B36/OpenJDK25U-jdk_s390x_linux_hotspot_25_36.tar.gz",
     )
     http_file(
         name = "openjdk_linux_riscv64_vanilla",
-        integrity = "sha256-k/ta8TSRtbBaw3gAK4qZdhTcD0IocMENX63N/LzQuUg=",
+        integrity = "sha256-P8NXWVArYg8BCpzSs9qEVPikmhVs6uuwDeH9gzVoLUA=",
         downloaded_file_path = "adoptopenjdk-riscv64-vanilla.tar.gz",
-        url = "https://github.com/adoptium/temurin24-binaries/releases/download/jdk-24.0.2%2B12/OpenJDK24U-jdk_riscv64_linux_hotspot_24.0.2_12.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25%2B36/OpenJDK25U-jdk_riscv64_linux_hotspot_25_36.tar.gz",
+    )
+
+    # Temurin distributes these JMODs separately from the JDK archives.
+    http_file(
+        name = "openjdk_linux_ppc64le_jmods",
+        integrity = "sha256-EtsIgX0vmwNy0DtEZQqCxLOpq2X8LS3/+5nKaROkBa0=",
+        downloaded_file_path = "openjdk-ppc64le-jmods.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25%2B36/OpenJDK25U-jmods_ppc64le_linux_hotspot_25_36.tar.gz",
+    )
+    http_file(
+        name = "openjdk_linux_riscv64_jmods",
+        integrity = "sha256-gvlvyZ25QpTYR3bCeWMGu9mO3Ib+/woC6J2Rm9m0C5o=",
+        downloaded_file_path = "openjdk-riscv64-jmods.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25%2B36/OpenJDK25U-jmods_riscv64_linux_hotspot_25_36.tar.gz",
+    )
+    http_file(
+        name = "openjdk_linux_s390x_jmods",
+        integrity = "sha256-+68E/n8NNFCe5BhdnouwBPqJ3PVF/GYZET1H1Ie/zQw=",
+        downloaded_file_path = "openjdk-s390x-jmods.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25%2B36/OpenJDK25U-jmods_s390x_linux_hotspot_25_36.tar.gz",
     )
 
 def _async_profiler_repos(ctx):

@@ -97,9 +97,17 @@ else
   tar xf "$tooljdk" --no-same-owner --strip-components=1 -C tool_jdk
   mkdir target_jdk
   tar xf "$fulljdk" --no-same-owner --strip-components=1 -C target_jdk
+  if [[ -n ${5:-} ]]; then
+    mkdir -p target_jdk/jmods
+    tar xf "$5" --no-same-owner --strip-components=1 -C target_jdk/jmods
+  fi
+  strip_options=(--strip-debug)
+  if [[ -n ${JLINK_OBJCOPY:-} ]]; then
+    strip_options=(--strip-java-debug-attributes "--strip-native-debug-symbols=objcopy=$JLINK_OBJCOPY")
+  fi
   cd target_jdk
   "../tool_jdk/bin/jlink" --module-path ./jmods/ --add-modules "$modules" \
-    --vm=server --strip-debug --no-man-pages \
+    --vm=server --no-man-pages "${strip_options[@]}" \
     --add-options=" ${JVM_OPTIONS}" \
     --output reduced
   for f in DISCLAIMER readme.txt legal/java.base/ASSEMBLY_EXCEPTION; do [ -f "$f" ] && cp "$f" reduced/; done
