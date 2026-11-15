@@ -452,6 +452,28 @@
         ]
       }
     },
+    "//tools/cross_compile:repositories.bzl%cross_extension": {
+      "general": {
+        "bzlTransitiveDigest": "FibEibfegdZmD43VLVvLA4TtFZOHlYFlx1GNgx93Kfg=",
+        "usagesDigest": "xRzwtP9MNZBCgV/eo8IAECT24EFKJkI/jEDw8TiqFaI=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "bazel_cross": {
+            "repoRuleId": "@@//tools/cross_compile:repositories.bzl%_cross_repository",
+            "attributes": {}
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "",
+            "rules_cc",
+            "rules_cc+"
+          ]
+        ]
+      }
+    },
     "@@envoy_api+//bazel:repositories.bzl%non_module_deps": {
       "general": {
         "bzlTransitiveDigest": "ZZmkeUj6sKBhRPx7KC3Ko/bFvj0z/1JGGmJwq07Bjz8=",

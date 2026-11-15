@@ -92,6 +92,12 @@ def embedded_jdk_repositories():
         url = "https://cdn.azul.com/zulu/bin/zulu25.32.17-ca-jdk25.0.2-linux_aarch64.tar.gz",
     )
     http_file(
+        name = "openjdk_linux_loongarch64_vanilla",
+        integrity = "sha256-rhHefmpFhcbfvzUpUjFYKMeUUQaVmC/6NSz9Pg01R0Q=",
+        downloaded_file_path = "loongson-linux-loongarch64-vanilla.tar.gz",
+        url = "https://ftp.loongnix.cn/Java/openjdk25/loongson25.3.20-fx-jdk25.0.2_10-linux-loongarch64-glibc2.34.tar.gz",
+    )
+    http_file(
         name = "openjdk_linux_ppc64le_vanilla",
         integrity = "sha256-smK3NbIVFzADdm2jZYjV9xfc6toChttBtDn5P7KtpGg=",
         downloaded_file_path = "adoptopenjdk-ppc64le-vanilla.tar.gz",
@@ -146,6 +152,26 @@ def embedded_jdk_repositories():
         integrity = "sha256-2rjwZCoUIYD7L9nLwLJindsYPkDMvpI4km5a9UlxFtg=",
         downloaded_file_path = "temurin-win-arm64-jmods.zip",
         url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.3%2B1-ea-beta/OpenJDK25U-jmods_aarch64_windows_hotspot_25.0.3_1-ea.zip",
+    )
+
+    # Temurin distributes these JMODs separately from the JDK archives.
+    http_file(
+        name = "openjdk_linux_ppc64le_jmods",
+        integrity = "sha256-W3P7xE657UuuWvmeZYAOY/T1l0J0qJh461eoXMkuLO4=",
+        downloaded_file_path = "openjdk-ppc64le-jmods.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.2%2B10/OpenJDK25U-jmods_ppc64le_linux_hotspot_25.0.2_10.tar.gz",
+    )
+    http_file(
+        name = "openjdk_linux_riscv64_jmods",
+        integrity = "sha256-e5xoQEi1v3e76YR1qoBcak3TMTd8E7KQJ+hbum1+4xk=",
+        downloaded_file_path = "openjdk-riscv64-jmods.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.2%2B10/OpenJDK25U-jmods_riscv64_linux_hotspot_25.0.2_10.tar.gz",
+    )
+    http_file(
+        name = "openjdk_linux_s390x_jmods",
+        integrity = "sha256-q+ojr8SqMWGRMZWCfyBcJw6zaJTCfjhoLHEaTDmAJ4k=",
+        downloaded_file_path = "openjdk-s390x-jmods.tar.gz",
+        url = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.2%2B10/OpenJDK25U-jmods_s390x_linux_hotspot_25.0.2_10.tar.gz",
     )
 
 def _async_profiler_repos(ctx):
