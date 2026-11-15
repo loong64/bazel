@@ -63,6 +63,18 @@ bazel_dep(name = "rules_go", version = "0.59.0", repo_name = None)  # Required f
 
 # bazel_dep overrides
 single_version_override(
+    module_name = "platforms",
+    patch_strip = 1,
+    patches = ["//third_party:platforms-loongarch64.patch"],
+)
+
+single_version_override(
+    module_name = "rules_java",
+    patch_strip = 1,
+    patches = ["//third_party:rules_java-linux-jni.patch"],
+)
+
+single_version_override(
     module_name = "rules_jvm_external",
     patch_strip = 1,
     patches = ["//third_party:rules_jvm_external_6.5.patch"],
@@ -353,8 +365,12 @@ use_repo(
     "graalvm_ce_toolchains",
     "graalvm_oracle",
     "openjdk_linux_aarch64_vanilla",
+    "openjdk_linux_loongarch64_vanilla",
+    "openjdk_linux_ppc64le_jmods",
     "openjdk_linux_ppc64le_vanilla",
+    "openjdk_linux_riscv64_jmods",
     "openjdk_linux_riscv64_vanilla",
+    "openjdk_linux_s390x_jmods",
     "openjdk_linux_s390x_vanilla",
     "openjdk_linux_vanilla",
     "openjdk_macos_aarch64_vanilla",
@@ -467,3 +483,7 @@ register_toolchains("@local_config_winsdk//:all")
 register_toolchains("//tools/res:empty_rc_toolchain")
 
 register_toolchains("@graalvm_ce_toolchains//:gvm")
+
+# Optional local cross compiler; configured with BAZEL_CROSS_* repository environment variables.
+cross_compile = use_extension("//tools/cross_compile:repositories.bzl", "cross_extension")
+use_repo(cross_compile, "bazel_cross")

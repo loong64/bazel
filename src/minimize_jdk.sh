@@ -180,6 +180,10 @@ else
   mkdir "target_jdk.$$"
   tar xf "$fulljdk" --no-same-owner -C "target_jdk.$$"
   strip_to_jdk_home "target_jdk.$$"
+  strip_options=(--strip-debug)
+  if [[ -n ${JLINK_OBJCOPY:-} ]]; then
+    strip_options=(--strip-java-debug-attributes "--strip-native-debug-symbols=objcopy=$JLINK_OBJCOPY")
+  fi
   cd "target_jdk.$$"
   # If the full JDK doesn't ship with jmods (e.g. JEP 493), use the separately
   # provided jmods archive.
@@ -196,7 +200,7 @@ else
     fi
   fi
   "../tool_jdk.$$/bin/jlink" --module-path ./jmods/ --add-modules "$modules" \
-    --vm=server --strip-debug --no-man-pages --no-header-files \
+    --vm=server --no-man-pages --no-header-files "${strip_options[@]}" \
     --add-options=" ${JVM_OPTIONS}" \
     --output reduced
   remove_distrusted_certs "../tool_jdk.$$/bin/keytool"

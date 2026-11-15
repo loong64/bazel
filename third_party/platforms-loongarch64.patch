@@ -1,0 +1,11 @@
+--- a/cpu/BUILD
++++ b/cpu/BUILD
+@@ -188,3 +188,8 @@
+     name = "riscv64",
+     constraint_setting = ":cpu",
+ )
++
++constraint_value(
++    name = "loongarch64",
++    constraint_setting = ":cpu",
++)

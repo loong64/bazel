@@ -372,7 +372,7 @@
   "moduleExtensions": {
     "//:repositories.bzl%async_profiler_repos": {
       "general": {
-        "bzlTransitiveDigest": "eG2GxC9jRldZe0W/5jX4DwwAHqBwgklCcZF8hZaeMdQ=",
+        "bzlTransitiveDigest": "1bSkGXl08ha1woHU+4xYhqe7J1xaxvqwX1IaTw/kCp0=",
         "usagesDigest": "HZpweKHRMOtXoILBP5eDAiXnYrVp3ueoyGz39BVKgsg=",
         "recordedInputs": [
           "REPO_MAPPING:,async_profiler +async_profiler_repos+async_profiler",
@@ -424,6 +424,21 @@
                 "https://github.com/async-profiler/async-profiler/releases/download/v4.1/async-profiler-4.1-macos.zip"
               ]
             }
+          }
+        }
+      }
+    },
+    "//tools/cross_compile:repositories.bzl%cross_extension": {
+      "general": {
+        "bzlTransitiveDigest": "CobBlLPlpMAW+P8ypS84f+2DnFF3aJay8B0af0C8fRU=",
+        "usagesDigest": "GGEwijW16r9tI/uvhR1PQvnnfOhAqXV/nhVV6vhebA0=",
+        "recordedInputs": [
+          "REPO_MAPPING:,rules_cc rules_cc+"
+        ],
+        "generatedRepoSpecs": {
+          "bazel_cross": {
+            "repoRuleId": "@@//tools/cross_compile:repositories.bzl%_cross_repository",
+            "attributes": {}
           }
         }
       }
